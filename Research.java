@@ -1,12 +1,13 @@
 import java.util.List;
 
-public class Research {
+public class Research implements FamilyResearch {
     private FamilyTree familyTree;
 
     public Research(FamilyTree familyTree) {
         this.familyTree = familyTree;
     }
 
+    @Override
     public List<Person> getChildren(String name) {
         Person person = familyTree.findPerson(name);
         if (person != null) {
@@ -15,6 +16,7 @@ public class Research {
         return null;
     }
 
+    @Override
     public Person[] getParents(String name) {
         Person person = familyTree.findPerson(name);
         if (person != null) {
@@ -23,6 +25,7 @@ public class Research {
         return null;
     }
 
+    @Override
     public List<Person> getSiblings(String name) {
         Person person = familyTree.findPerson(name);
         if (person != null) {
