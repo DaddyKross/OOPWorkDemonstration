@@ -1,47 +1,17 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDate;
 
-public class Person {
-    private String name;
-    private Person father;
-    private Person mother;
-    private List<Person> children;
-
-    public Person(String name) {
-        this.name = name;
-        this.children = new ArrayList<>();
+public class Person extends AbstractPerson {
+    public Person(String name, String gender, LocalDate dateOfBirth) {
+        super(name, gender, dateOfBirth);
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public Person getFather() {
-        return father;
-    }
-
-    public void setFather(Person father) {
-        this.father = father;
-    }
-
-    public Person getMother() {
-        return mother;
-    }
-
-    public void setMother(Person mother) {
-        this.mother = mother;
-    }
-
-    public List<Person> getChildren() {
-        return children;
-    }
-
-    public void addChild(Person child) {
-        this.children.add(child);
+    @Override
+    public String getFullInfo() {
+        return name + " (Пол: " + gender + ", Дата рождения: " + dateOfBirth + ")";
     }
 
     @Override
     public String toString() {
-        return name;
+        return getFullInfo();
     }
 }
