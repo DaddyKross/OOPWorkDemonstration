@@ -1,3 +1,7 @@
+package familytree.service;
+
+import familytree.model.Person;
+
 import java.util.List;
 
 public interface IFamilyResearch {
