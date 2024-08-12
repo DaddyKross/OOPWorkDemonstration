@@ -1,3 +1,12 @@
+package familytree;
+
+import familytree.model.FamilyTree;
+import familytree.model.Person;
+import familytree.service.FamilyResearch;
+import familytree.service.FileOperations;
+import familytree.service.IFamilyResearch;
+import familytree.service.IFileOperations;
+
 import java.time.LocalDate;
 import java.time.Period;
 import java.io.IOException;
@@ -43,19 +52,30 @@ public class Main {
         System.out.println("Возраст Ивана: " + calculateAge(ivan.getDateOfBirth()) + " лет");
         System.out.println("Возраст Марии: " + calculateAge(maria.getDateOfBirth()) + " лет");
 
-        IFileOperations fileOps = new FileOperations(familyTree);
+        System.out.println("\nСортировка по имени:");
+        familyTree.sortByName();
+        for (Person person : familyTree) {
+            System.out.println(person);
+        }
+
+        System.out.println("\nСортировка по дате рождения:");
+        familyTree.sortByBirthDate();
+        for (Person person : familyTree) {
+            System.out.println(person);
+        }
+
+        IFileOperations fileOps = new FileOperations();
 
         try {
-            fileOps.saveToFile("family_tree.ser");
-            System.out.println("Семейное дерево сохранено в файл.");
+            fileOps.saveToFile("family_tree.ser", familyTree);
+            System.out.println("\nСемейное дерево сохранено в файл.");
 
-            fileOps.loadFromFile("family_tree.ser");
+            FamilyTree loadedTree = fileOps.loadFromFile("family_tree.ser");
             System.out.println("Семейное дерево загружено из файла.");
 
-            FamilyTree loadedTree = ((FileOperations) fileOps).getFamilyTree();
             IFamilyResearch loadedResearch = new FamilyResearch(loadedTree);
 
-            System.out.println("Проверка загруженных данных:");
+            System.out.println("\nПроверка загруженных данных:");
             System.out.println("Дети Ивана: " + loadedResearch.getChildren("Иван"));
             System.out.println("Родители Анны: " + java.util.Arrays.toString(loadedResearch.getParents("Анна")));
             System.out.println("Братья и сестры Бориса: " + loadedResearch.getSiblings("Борис"));
