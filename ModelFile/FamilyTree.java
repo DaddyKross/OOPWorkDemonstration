@@ -1,56 +1,52 @@
 package familytree.model;
 
-import familytree.util.PersonComparators;
-
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
-public class FamilyTree implements Serializable, Iterable<Person> {
+public class FamilyTree<T extends FamilyMember<T>> implements Serializable, Iterable<T> {
     private static final long serialVersionUID = 1L;
-    private List<Person> people;
+    private List<T> members;
 
     public FamilyTree() {
-        this.people = new ArrayList<>();
+        this.members = new ArrayList<>();
     }
 
-    public void addPerson(Person person) {
-        people.add(person);
+    public void addMember(T member) {
+        members.add(member);
     }
 
-    public List<Person> getPeople() {
-        return people;
+    public List<T> getMembers() {
+        return members;
     }
 
-    public Person findPerson(String name) {
-        for (Person person : people) {
-            if (person.getName().equals(name)) {
-                return person;
+    public T findPerson(String name) {
+        for (T member : members) {
+            if (member.getName().equals(name)) {
+                return member;
             }
         }
         return null;
     }
-
     public void sortByName() {
-        Collections.sort(people, PersonComparators.compareByName);
+        members.sort(Comparator.comparing(FamilyMember::getName));
     }
 
     public void sortByBirthDate() {
-        Collections.sort(people, PersonComparators.compareByBirthDate);
-    }
+        members.sort(Comparator.comparing(FamilyMember::getDateOfBirth));
 
     @Override
-    public Iterator<Person> iterator() {
-        return people.iterator();
+    public Iterator<T> iterator() {
+        return members.iterator();
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        for (Person person : people) {
-            sb.append(person).append("\n");
+        for (T member : members) {
+            sb.append(member).append("\n");
         }
         return sb.toString();
     }

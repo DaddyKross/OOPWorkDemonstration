@@ -7,9 +7,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class FamilyResearch implements IFamilyResearch {
-    private FamilyTree familyTree;
+    private FamilyTree<Person> familyTree;
 
-    public FamilyResearch(FamilyTree familyTree) {
+    public FamilyResearch(FamilyTree<Person> familyTree) {
         this.familyTree = familyTree;
     }
 
