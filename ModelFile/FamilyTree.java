@@ -30,6 +30,7 @@ public class FamilyTree<T extends FamilyMember<T>> implements Serializable, Iter
         }
         return null;
     }
+    
     public void sortByName() {
         members.sort(Comparator.comparing(FamilyMember::getName));
     }
