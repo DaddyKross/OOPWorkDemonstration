@@ -6,7 +6,7 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
-public class FamilyTree<T extends FamilyMember<T>> implements Serializable, Iterable<T> {
+public class FamilyTree<T extends FamilyMember<T>> implements FamilyTreeOperations<T>, Serializable, Iterable<T> {
     private static final long serialVersionUID = 1L;
     private List<T> members;
 
@@ -14,14 +14,17 @@ public class FamilyTree<T extends FamilyMember<T>> implements Serializable, Iter
         this.members = new ArrayList<>();
     }
 
+    @Override
     public void addMember(T member) {
         members.add(member);
     }
 
+    @Override
     public List<T> getMembers() {
         return members;
     }
 
+    @Override
     public T findPerson(String name) {
         for (T member : members) {
             if (member.getName().equals(name)) {
@@ -30,19 +33,20 @@ public class FamilyTree<T extends FamilyMember<T>> implements Serializable, Iter
         }
         return null;
     }
-    
+
+    @Override
     public void sortByName() {
         members.sort(Comparator.comparing(FamilyMember::getName));
     }
 
+    @Override
     public void sortByBirthDate() {
         members.sort(Comparator.comparing(FamilyMember::getDateOfBirth));
-
+    }
     @Override
     public Iterator<T> iterator() {
         return members.iterator();
     }
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
